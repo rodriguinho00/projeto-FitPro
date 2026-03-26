@@ -16,7 +16,7 @@ Este é um sistema web para gestão de academias desenvolvido para a disciplina 
 
 ## 👨‍💻 Equipe:
 - **Rodrigo Santos** (Desenvolvedor Principal)
-- **Andre Marquetto** (Co-Desenvolvedor)
+- **Isaque Garcia** (Co-Desenvolvedor)
 
 ## 📖 Como rodar:
 1. Instale o Flask: `pip install flask`
