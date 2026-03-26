@@ -1,0 +1,187 @@
+/* ==============================================================================
+   FitPro Academia — CSS Profissional (Versão 2026)
+   Desenvolvido por: Rodrigo Santos
+   Tema: Light/Dark Mix (Equilibrado e Elegante)
+   ============================================================================== */
+
+/* ── Variáveis CSS ── */
+:root {
+    --academia-vermelho: #dc3545;        /* Vermelho principal */
+    --academia-vermelho-escuro: #b02a37; /* Vermelho para hover */
+    --fundo-corpo: #f4f7f9;              /* Fundo claro acinzentado */
+    --fundo-card: #ffffff;               /* Fundo dos cards (Branco) */
+    --texto-principal: #2d3436;          /* Texto escuro suave */
+    --texto-muted: #636e72;              /* Texto secundário */
+    --borda-suave: #dfe6e9;              /* Cor das bordas */
+    --sombra-suave: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Estilos Globais ── */
+body {
+    background-color: var(--fundo-corpo);
+    color: var(--texto-principal);
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* ── Navbar ── */
+.navbar {
+    background-color: #1a1a2e !important; /* Navbar escura para contraste */
+    border-bottom: 3px solid var(--academia-vermelho);
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--academia-vermelho) !important;
+}
+
+/* ── Cards Premium (Claros e Elegantes) ── */
+.card-premium {
+    background-color: var(--fundo-card);
+    border: 1px solid var(--borda-suave) !important;
+    border-radius: 15px;
+    box-shadow: var(--sombra-suave);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.card-premium:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(220, 53, 69, 0.12);
+    border-color: var(--academia-vermelho) !important;
+}
+
+.card-header-premium {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid var(--borda-suave);
+    padding: 1.2rem;
+    font-weight: 700;
+    color: var(--academia-vermelho);
+}
+
+/* ── Tabelas Profissionais ── */
+.table {
+    background-color: var(--fundo-card);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #1a1a2e;
+    color: #ffffff;
+}
+
+.table thead th {
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.table tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--borda-suave);
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(220, 53, 69, 0.03);
+}
+
+/* ── Badges de Status ── */
+.badge {
+    padding: 0.5em 1em;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* ── Botões ── */
+.btn-danger {
+    background-color: var(--academia-vermelho);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: var(--academia-vermelho-escuro);
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-outline-danger {
+    border: 2px solid var(--academia-vermelho);
+    color: var(--academia-vermelho);
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--academia-vermelho);
+    color: #fff;
+}
+
+/* ── Rodapé ── */
+.footer-custom {
+    background-color: #1a1a2e;
+    color: #ffffff;
+    border-top: 4px solid var(--academia-vermelho);
+}
+
+.footer-custom strong {
+    color: var(--academia-vermelho);
+}
+
+/* ── Efeitos Visuais ── */
+.text-danger {
+    color: var(--academia-vermelho) !important;
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-suave);
+}
+
+/* ── Estilos para a Página da Equipe ── */
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--academia-vermelho), #ff6b6b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 2.5rem;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+.social-link {
+    color: var(--texto-muted);
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: var(--academia-vermelho);
+}
