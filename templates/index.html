@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPro Academia — Sua Melhor Versão Começa Aqui (2026)</title>
+    
+    <!-- Bootstrap 5 para layout responsivo -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons para os ícones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar Pública -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="{{ url_for('index') }}">
+                <i class="bi bi-lightning-charge-fill me-1"></i> FitPro Academia
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPublico">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarPublico">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('index') }}"><i class="bi bi-house-fill me-1"></i>Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('cadastro') }}"><i class="bi bi-person-plus-fill me-1"></i>Cadastro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('equipe') }}"><i class="bi bi-star-fill me-1"></i>Equipe</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Destaque principal -->
+    <section class="hero-section text-white text-center py-5" style="background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);">
+        <div class="container py-5">
+            <h1 class="display-3 fw-bold mb-3">FitPro Academia</h1>
+            <p class="lead mb-4 fs-4">Transformando vidas através do movimento desde 2026.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('login') }}" class="btn btn-light btn-lg fw-bold px-4 shadow">Entrar no Sistema</a>
+                <a href="{{ url_for('cadastro') }}" class="btn btn-outline-light btn-lg px-4">Criar Conta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Quem Somos e O que Fazemos -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold text-danger mb-4">Quem Somos</h2>
+                    <p class="text-muted fs-5">
+                        A <strong>FitPro Academia</strong> nasceu com o propósito de democratizar o acesso à saúde e ao bem-estar de alta performance. 
+                        Somos mais do que uma academia; somos um centro de excelência focado em resultados reais e acompanhamento personalizado.
+                    </p>
+                    <p class="text-muted fs-5">
+                        Nossa missão é proporcionar uma experiência única de treinamento, unindo tecnologia de ponta, 
+                        profissionais altamente qualificados e um ambiente motivador para que você alcance sua melhor versão.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-4">
+                        <div class="col-sm-6">
+                            <div class="card border-0 shadow-sm p-4 text-center h-100 card-hover">
+                                <i class="bi bi-heart-pulse-fill text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Saúde em Foco</h5>
+                                <p class="text-muted small">Acompanhamento nutricional e avaliações físicas periódicas.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card border-0 shadow-sm p-4 text-center h-100 card-hover">
+                                <i class="bi bi-trophy-fill text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Alta Performance</h5>
+                                <p class="text-muted small">Equipamentos de última geração e treinos avançados.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card border-0 shadow-sm p-4 text-center h-100 card-hover">
+                                <i class="bi bi-people-fill text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Comunidade</h5>
+                                <p class="text-muted small">Aulas em grupo que motivam e geram resultados coletivos.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card border-0 shadow-sm p-4 text-center h-100 card-hover">
+                                <i class="bi bi-shield-check text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Segurança</h5>
+                                <p class="text-muted small">Ambiente monitorado e instrutores sempre presentes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: O que você precisa saber -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-danger">O que você precisa saber</h2>
+                <p class="text-muted">Informações essenciais para começar sua jornada conosco</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-clock-fill text-danger me-2"></i>Horários</h5>
+                        <p class="text-muted small">Funcionamos de Segunda a Sexta das 05:00 às 23:00. Sábados e Domingos das 08:00 às 14:00.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-card-checklist text-danger me-2"></i>Matrícula</h5>
+                        <p class="text-muted small">Para se matricular, basta trazer um documento com foto e realizar sua avaliação física inicial.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-phone-fill text-danger me-2"></i>App FitPro</h5>
+                        <p class="text-muted small">Todos os nossos alunos têm acesso ao aplicativo exclusivo para acompanhar treinos e pagamentos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas Rápidas -->
+    <section class="py-5 bg-white shadow-sm">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3">
+                    <h2 class="fw-bold text-danger mb-0">{{ total_alunos }}+</h2>
+                    <p class="text-muted">Alunos Ativos</p>
+                </div>
+                <div class="col-md-3">
+                    <h2 class="fw-bold text-danger mb-0">{{ total_aulas }}</h2>
+                    <p class="text-muted">Modalidades</p>
+                </div>
+                <div class="col-md-3">
+                    <h2 class="fw-bold text-danger mb-0">{{ total_funcionarios }}</h2>
+                    <p class="text-muted">Especialistas</p>
+                </div>
+                <div class="col-md-3">
+                    <h2 class="fw-bold text-danger mb-0">100%</h2>
+                    <p class="text-muted">Satisfação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer-custom mt-5 py-4 bg-dark text-white text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 FitPro Academia &mdash; Desenvolvido por <strong>Rodrigo Santos</strong></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

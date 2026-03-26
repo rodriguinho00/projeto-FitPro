@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block titulo %}Financeiro — FitPro Academia{% endblock %}
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-cash-coin text-neon me-2"></i>Controle Financeiro
+        </h2>
+        <p class="text-muted mb-0">Acompanhe os pagamentos e atrasos dos alunos</p>
+    </div>
+    <button class="btn btn-neon fw-semibold">
+        <i class="bi bi-file-earmark-pdf me-1"></i>Gerar Relatório
+    </button>
+</div>
+
+<!-- Resumo Financeiro -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card card-premium border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Pagamentos em Dia</h6>
+                <h3 class="fw-bold text-success mb-0">
+                    <i class="bi bi-check-circle-fill me-1"></i>
+                    {{ alunos|selectattr('pagamento', 'equalto', 'Pago')|list|length }}
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-premium border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Pagamentos Atrasados</h6>
+                <h3 class="fw-bold text-danger mb-0">
+                    <i class="bi bi-exclamation-circle-fill me-1"></i>
+                    {{ alunos|selectattr('pagamento', 'equalto', 'Atrasado')|list|length }}
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-premium border-0">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Pagamentos Pendentes</h6>
+                <h3 class="fw-bold text-warning mb-0">
+                    <i class="bi bi-clock-fill me-1"></i>
+                    {{ alunos|selectattr('pagamento', 'equalto', 'Pendente')|list|length }}
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabela de Pagamentos -->
+<div class="card card-premium border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-dark mb-0 align-middle">
+                <thead class="table-header-premium">
+                    <tr>
+                        <th><i class="bi bi-hash me-1"></i>ID</th>
+                        <th><i class="bi bi-person-fill me-1"></i>Aluno</th>
+                        <th><i class="bi bi-bookmark-fill me-1"></i>Plano</th>
+                        <th><i class="bi bi-cash-coin me-1"></i>Valor</th>
+                        <th><i class="bi bi-calendar-check me-1"></i>Vencimento</th>
+                        <th><i class="bi bi-credit-card me-1"></i>Status</th>
+                        <th class="text-center"><i class="bi bi-gear-fill me-1"></i>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno in alunos %}
+                    <tr class="row-premium">
+                        <td class="fw-semibold text-neon">{{ aluno.id }}</td>
+                        <td class="fw-semibold">{{ aluno.nome }}</td>
+                        <td>{{ aluno.plano }}</td>
+                        <td class="text-neon fw-semibold">
+                            <!-- Valor simulado baseado no plano -->
+                            {% if aluno.plano == 'Mensal' %}R$ 89,90
+                            {% elif aluno.plano == 'Trimestral' %}R$ 239,90
+                            {% elif aluno.plano == 'Semestral' %}R$ 419,90
+                            {% elif aluno.plano == 'Anual' %}R$ 719,90
+                            {% else %}R$ 59,90{% endif %}
+                        </td>
+                        <td class="text-muted small">{{ aluno.data_vencimento }}</td>
+                        <td>
+                            <!-- Status de Pagamento com cores vibrantes -->
+                            {% if aluno.pagamento == 'Pago' %}
+                                <span class="badge bg-success">
+                                    <i class="bi bi-check-circle-fill me-1"></i>{{ aluno.pagamento }}
+                                </span>
+                            {% elif aluno.pagamento == 'Atrasado' %}
+                                <span class="badge bg-danger">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ aluno.pagamento }}
+                                </span>
+                            {% else %}
+                                <span class="badge bg-warning">
+                                    <i class="bi bi-clock-fill me-1"></i>{{ aluno.pagamento }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-success me-1" title="Marcar como Pago">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" title="Enviar Cobrança">
+                                <i class="bi bi-envelope-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-dark border-top border-secondary text-muted small">
+        Total: <strong class="text-neon">{{ alunos|length }}</strong> aluno(s) no sistema
+    </div>
+</div>
+
+{% endblock %}

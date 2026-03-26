@@ -1,0 +1,90 @@
+<!-- Herda o layout base do sistema (base.html) -->
+{% extends 'base.html' %}
+
+<!-- Define o título da aba do navegador para esta página -->
+{% block titulo %}Usuários — FitPro Academia{% endblock %}
+
+<!-- Início do conteúdo principal da página -->
+{% block conteudo %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-people-fill text-danger me-2"></i>Usuários do Sistema
+        </h2>
+        <p class="text-muted mb-0">Gerencie os colaboradores com acesso ao sistema</p>
+    </div>
+    <!-- Botão para inserir novo usuário (apenas visual nesta entrega) -->
+    <button class="btn btn-danger fw-semibold">
+        <i class="bi bi-plus-circle-fill me-1"></i>Novo Usuário
+    </button>
+</div>
+
+<!-- Card do Bootstrap para organizar a tabela -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <!-- Tabela responsiva do Bootstrap -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered mb-0 align-middle">
+                <!-- Cabeçalho da tabela com classes de estilo personalizadas -->
+                <thead class="table-danger">
+                    <tr>
+                        <th><i class="bi bi-hash me-1"></i>ID</th>
+                        <th><i class="bi bi-person-fill me-1"></i>Nome</th>
+                        <th><i class="bi bi-envelope-fill me-1"></i>E-mail</th>
+                        <th><i class="bi bi-shield-fill me-1"></i>Perfil</th>
+                        <th><i class="bi bi-circle-fill me-1"></i>Status</th>
+                        <th class="text-center"><i class="bi bi-gear-fill me-1"></i>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop Jinja2 para percorrer a lista de usuários enviada pelo app.py -->
+                    {% for u in usuarios %}
+                    <tr>
+                        <td class="fw-semibold text-muted">{{ u.id }}</td>
+                        <td class="fw-semibold">{{ u.nome }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>
+                            <!-- Condicional Jinja2 para mudar a cor do badge conforme o perfil -->
+                            {% if u.perfil == 'Administrador' %}
+                                <span class="badge bg-danger">{{ u.perfil }}</span>
+                            {% elif u.perfil == 'Instrutor' %}
+                                <span class="badge bg-primary">{{ u.perfil }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ u.perfil }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <!-- Badge de status (Ativo/Inativo) -->
+                            {% if u.status == 'Ativo' %}
+                                <span class="badge bg-success">
+                                    <i class="bi bi-check-circle-fill me-1"></i>{{ u.status }}
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">
+                                    <i class="bi bi-x-circle-fill me-1"></i>{{ u.status }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <!-- Botões de ação (apenas visuais nesta entrega) -->
+                            <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                <i class="bi bi-pencil-fill"></i> Editar
+                            </button>
+                            <!-- Botão de excluir com classe 'btn-excluir' para o JavaScript capturar o clique -->
+                            <button class="btn btn-sm btn-outline-danger btn-excluir" title="Excluir"
+                                    data-nome="{{ u.nome }}">
+                                <i class="bi bi-trash-fill"></i> Excluir
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Rodapé do card com o total de registros usando o filtro |length do Jinja2 -->
+    <div class="card-footer text-muted small">
+        Total: <strong>{{ usuarios|length }}</strong> usuário(s) cadastrado(s)
+    </div>
+</div>
+{% endblock %}
