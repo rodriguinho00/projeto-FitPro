@@ -10,8 +10,10 @@
 # Importação das bibliotecas necessárias do Flask
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
+from database import conectar, criar_tabela
 # Inicialização da aplicação Flask
 app = Flask(__name__)
+criar_tabela()
 
 # Chave secreta para criptografia de sessão e flash messages
 app.secret_key = 'rodrigo_santos_academia_2026_premium_v2'
@@ -96,19 +98,27 @@ def logout():
 # ──────────────────────────────────────────────────────────────────────────────
 # DASHBOARD
 # ──────────────────────────────────────────────────────────────────────────────
-
 @app.route('/dashboard')
 def dashboard():
 
     if 'usuario_logado' not in session:
+
         flash('Faça login primeiro.', 'warning')
+
         return redirect(url_for('login'))
 
-    clientes_dashboard = [c for c in clientes if c['dashboard']]
+    conn = conectar()
+
+    clientes = conn.execute('''
+        SELECT * FROM clientes
+        WHERE dashboard = 1
+    ''').fetchall()
+
+    conn.close()
 
     return render_template(
         'dashboard.html',
-        clientes=clientes_dashboard,
+        clientes=clientes,
         total_clientes=len(clientes)
     )
 
@@ -159,29 +169,46 @@ def cadastro():
         permissao = request.form.get('permissao')
         descricao = request.form.get('descricao')
 
+        ativo = 1 if request.form.get('ativo') else 0
+        dashboard = 1 if request.form.get('dashboard') else 0
+
         if senha != confirmar:
 
             flash('As senhas não coincidem.', 'danger')
 
             return render_template('cadastro.html')
 
-        novo_cliente = {
+        conn = conectar()
 
-            'id': len(clientes) + 1,
-            'nome': nome,
-            'email': email,
-            'status': status,
-            'categoria': categoria,
-            'permissao': permissao,
-            'descricao': descricao,
-            'dashboard': True,
-            'ativo': True
+        conn.execute('''
+            INSERT INTO clientes
+            (
+                nome,
+                email,
+                status,
+                categoria,
+                permissao,
+                descricao,
+                dashboard,
+                ativo
+            )
 
-        }
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            nome,
+            email,
+            status,
+            categoria,
+            permissao,
+            descricao,
+            dashboard,
+            ativo
+        ))
 
-        clientes.append(novo_cliente)
+        conn.commit()
+        conn.close()
 
-        flash('Conta criada com sucesso!', 'success')
+        flash('Cliente cadastrado com sucesso!', 'success')
 
         return redirect(url_for('dashboard'))
 
