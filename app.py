@@ -11,6 +11,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
 from database import conectar, criar_tabela
+
+from db import executar_query, buscar_dados
 # Inicialização da aplicação Flask
 app = Flask(__name__)
 criar_tabela()
@@ -159,57 +161,33 @@ def cadastro():
 
     if request.method == 'POST':
 
+        # =========================
+        # DADOS DO FORM
+        # =========================
         nome = request.form.get('nome')
         email = request.form.get('email')
         senha = request.form.get('senha')
         confirmar = request.form.get('confirmar_senha')
+        funcao_id = request.form.get('funcao_id')
 
-        status = request.form.get('status')
-        categoria = request.form.get('categoria')
-        permissao = request.form.get('permissao')
-        descricao = request.form.get('descricao')
-
-        ativo = 1 if request.form.get('ativo') else 0
-        dashboard = 1 if request.form.get('dashboard') else 0
-
+        # =========================
+        # VALIDAÇÃO SENHA
+        # =========================
         if senha != confirmar:
-
             flash('As senhas não coincidem.', 'danger')
-
             return render_template('cadastro.html')
 
-        conn = conectar()
+        # =========================
+        # INSERT NO BANCO (MYSQL)
+        # =========================
+        sql = """
+        INSERT INTO usuarios (nome, email, senha, funcao_id)
+        VALUES (%s, %s, %s, %s)
+        """
 
-        conn.execute('''
-            INSERT INTO clientes
-            (
-                nome,
-                email,
-                status,
-                categoria,
-                permissao,
-                descricao,
-                dashboard,
-                ativo
-            )
+        executar_query(sql, (nome, email, senha, funcao_id))
 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (
-            nome,
-            email,
-            status,
-            categoria,
-            permissao,
-            descricao,
-            dashboard,
-            ativo
-        ))
-
-        conn.commit()
-        conn.close()
-
-        flash('Cliente cadastrado com sucesso!', 'success')
-
+        flash('Usuário cadastrado com sucesso!', 'success')
         return redirect(url_for('dashboard'))
 
     return render_template('cadastro.html')
