@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block titulo %}Planos — FitPro Academia{% endblock %}
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-card-list text-neon me-2"></i>Planos de Matrícula
+        </h2>
+        <p class="text-muted mb-0">Gerencie os planos de assinatura e benefícios</p>
+    </div>
+    <button class="btn btn-neon fw-semibold">
+        <i class="bi bi-plus-circle-fill me-1"></i>Novo Plano
+    </button>
+</div>
+
+<!-- Cards em Grid para os planos (Visual premium) -->
+<div class="row g-4">
+    {% for plano in planos %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card card-plano card-premium border-0 h-100 {% if plano.nome == 'Anual' %}card-destaque{% endif %}">
+            {% if plano.nome == 'Anual' %}
+            <div class="badge bg-neon position-absolute top-0 start-50 translate-middle-x mt-2">
+                <i class="bi bi-star-fill me-1"></i>Mais Popular
+            </div>
+            {% endif %}
+            
+            <div class="card-body text-center">
+                <h4 class="fw-bold mb-2">{{ plano.nome }}</h4>
+                <p class="text-muted small mb-3">{{ plano.duracao }}</p>
+                
+                <!-- Valor em destaque -->
+                <div class="mb-4">
+                    <span class="display-6 fw-bold text-neon">{{ plano.valor }}</span>
+                    <p class="text-muted small">/período</p>
+                </div>
+                
+                <!-- Aulas incluídas -->
+                <p class="small mb-3">
+                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                    <strong>Aulas:</strong> {{ plano.aulas }}
+                </p>
+                
+                <!-- Benefícios -->
+                <div class="text-start mb-4">
+                    <p class="small fw-semibold mb-2">Benefícios:</p>
+                    <ul class="list-unstyled small">
+                        {% for beneficio in plano.beneficios %}
+                        <li class="mb-1">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>{{ beneficio }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <!-- Quantidade de alunos -->
+                <div class="alert alert-info small mb-3">
+                    <i class="bi bi-people-fill me-1"></i>
+                    <strong>{{ plano.alunos }}</strong> aluno(s) neste plano
+                </div>
+            </div>
+            
+            <div class="card-footer bg-dark border-top border-secondary">
+                <button class="btn btn-sm btn-outline-info me-1 w-100" title="Editar">
+                    <i class="bi bi-pencil-fill me-1"></i>Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger btn-excluir w-100 mt-2" data-nome="{{ plano.nome }}">
+                    <i class="bi bi-trash-fill me-1"></i>Excluir
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

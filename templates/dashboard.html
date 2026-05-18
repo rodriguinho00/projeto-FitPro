@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard FitPro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold" href="#">
+
+                <i class="bi bi-lightning-charge-fill"></i>
+
+                FitPro Dashboard
+
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="btn btn-light">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Sair
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- CONTAINER -->
+    <div class="container py-5">
+
+        <!-- CARDS -->
+        <div class="row g-4">
+
+            <!-- CLIENTES -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <i class="bi bi-people-fill fs-1 text-danger"></i>
+
+                        <h2 class="fw-bold mt-3">
+
+                            {{ total_clientes }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            Clientes
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ALUNOS -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <i class="bi bi-person-badge-fill fs-1 text-primary"></i>
+
+                        <h2 class="fw-bold mt-3">
+
+                            {{ total_alunos }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            Alunos
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FUNCIONÁRIOS -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <i class="bi bi-person-workspace fs-1 text-success"></i>
+
+                        <h2 class="fw-bold mt-3">
+
+                            {{ total_funcionarios }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            Funcionários
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PLANOS -->
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <i class="bi bi-card-checklist fs-1 text-warning"></i>
+
+                        <h2 class="fw-bold mt-3">
+
+                            {{ total_planos }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            Planos
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- AULAS -->
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow rounded-4">
+
+                    <div class="card-body text-center">
+
+                        <i class="bi bi-bar-chart-fill fs-1 text-info"></i>
+
+                        <h2 class="fw-bold mt-3">
+
+                            {{ total_aulas }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            Aulas
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TABELA -->
+        <div class="card border-0 shadow rounded-4 mt-5">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h4 class="fw-bold">
+
+                        Clientes no Dashboard
+
+                    </h4>
+
+                    <span class="badge bg-success fs-6">
+
+                        {{ clientes_ativos }} ativos
+
+                    </span>
+
+                </div>
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+
+    <tr>
+
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Status</th>
+        <th>Categoria</th>
+        <th>Permissão</th>
+        <th>Descrição</th>
+        <th>Dashboard</th>
+        <th>Ativo</th>
+
+    </tr>
+
+</thead>
+
+                   <tbody>
+
+    {% for cliente in clientes %}
+
+    <tr>
+
+        <td>
+
+            <span class="badge bg-dark">
+
+                #{{ cliente.id }}
+
+            </span>
+
+        </td>
+
+        <td class="fw-semibold">
+
+            {{ cliente.nome }}
+
+        </td>
+
+        <td>
+
+            {% if cliente.status == 'Ativo' %}
+
+                <span class="badge bg-success">
+
+                    {{ cliente.status }}
+
+                </span>
+
+            {% elif cliente.status == 'Bloqueado' %}
+
+                <span class="badge bg-warning text-dark">
+
+                    {{ cliente.status }}
+
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-danger">
+
+                    {{ cliente.status }}
+
+                </span>
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            <span class="badge bg-primary">
+
+                {{ cliente.categoria }}
+
+            </span>
+
+        </td>
+
+        <td>
+
+            {{ cliente.permissao }}
+
+        </td>
+
+        <td style="max-width: 300px;">
+
+            <div class="text-muted small">
+
+                {{ cliente.descricao }}
+
+            </div>
+
+        </td>
+
+        <td>
+
+            {% if cliente.dashboard %}
+
+                <span class="badge bg-info">
+
+                    SIM
+
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-secondary">
+
+                    NÃO
+
+                </span>
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            {% if cliente.ativo %}
+
+                <span class="badge bg-success">
+
+                    Ativo
+
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-danger">
+
+                    Inativo
+
+                </span>
+
+            {% endif %}
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

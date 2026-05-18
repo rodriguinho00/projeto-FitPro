@@ -1,0 +1,50 @@
+-- =========================
+-- BANCO DE DADOS
+-- =========================
+CREATE DATABASE IF NOT EXISTS fitpro
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE fitpro;
+
+-- =========================
+-- TABELA FUNÇÕES (PERMISSÕES)
+-- =========================
+CREATE TABLE IF NOT EXISTS funcoes (
+    id_funcao BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(20) NOT NULL UNIQUE,
+    status BOOLEAN DEFAULT 1,
+    descricao VARCHAR(255),
+
+    -- permissões do sistema FitPro
+    gerenciar_alunos BOOLEAN DEFAULT 0,
+    gerenciar_treinos BOOLEAN DEFAULT 0,
+    gerenciar_exercicios BOOLEAN DEFAULT 0,
+    gerenciar_planos BOOLEAN DEFAULT 0,
+    gerenciar_avaliacoes BOOLEAN DEFAULT 0,
+    gerenciar_pagamentos BOOLEAN DEFAULT 0,
+
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    alterado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- =========================
+-- TABELA USUÁRIOS
+-- =========================
+CREATE TABLE IF NOT EXISTS usuarios (
+    id_usuario BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+
+    funcao_id BIGINT UNSIGNED NOT NULL,
+
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    alterado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario_funcao
+        FOREIGN KEY (funcao_id)
+        REFERENCES funcoes(id_funcao)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
